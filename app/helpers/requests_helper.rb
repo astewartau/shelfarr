@@ -26,4 +26,8 @@ module RequestsHelper
   def download_status_color(status)
     DOWNLOAD_STATUS_COLORS[status.to_s] || "bg-gray-700 text-gray-300"
   end
+
+  def can_approve_requests?
+    Current.user.admin? || SettingsService.user_request_approval_allowed?
+  end
 end

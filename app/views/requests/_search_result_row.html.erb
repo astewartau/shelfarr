@@ -32,7 +32,7 @@
           class: "px-2 py-1 text-xs bg-gray-700 hover:bg-gray-600 text-gray-300 rounded font-medium transition" %>
     <% end %>
     <% if result.pending? && result.downloadable? %>
-      <%= button_to "Select", select_admin_request_search_result_path(request, result),
+      <%= button_to "Select", select_request_search_result_path(request, result),
           method: :post,
           class: "px-2 py-1 text-xs bg-blue-600 hover:bg-blue-500 text-white rounded font-medium transition" %>
     <% elsif result.pending? %>

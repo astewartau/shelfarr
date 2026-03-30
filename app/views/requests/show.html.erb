@@ -78,7 +78,7 @@
                 <h3 class="text-sm font-medium text-blue-400">Search Results Available</h3>
                 <p class="text-sm text-blue-400/80 mt-1">
                   <%= @request.search_results.count %> results found.
-                  <% if Current.user.admin? %>
+                  <% if can_approve_requests? %>
                     Select a result to begin download.
                   <% else %>
                     Waiting for admin approval.
@@ -86,8 +86,8 @@
                 </p>
               </div>
             </div>
-            <% if Current.user.admin? %>
-              <%= link_to "View Results", admin_request_search_results_path(@request),
+            <% if can_approve_requests? %>
+              <%= link_to "View Results", request_search_results_path(@request),
                   class: "px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white font-medium rounded-lg transition text-sm" %>
             <% end %>
           </div>
@@ -191,9 +191,9 @@
       <% end %>
     </div>
 
-    <% if @request.can_be_cancelled? || (Current.user.admin? && @request.can_retry?) %>
+    <% if @request.can_be_cancelled? || (can_approve_requests? && @request.can_retry?) %>
       <div class="px-6 py-4 bg-gray-800/50 border-t border-gray-800 flex justify-end gap-3" data-controller="delete-modal">
-        <% if Current.user.admin? && @request.can_retry? %>
+        <% if can_approve_requests? && @request.can_retry? %>
           <%= button_to "Retry Request", retry_request_path(@request),
               method: :post,
               class: "px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white font-medium rounded-lg transition" %>

@@ -64,6 +64,7 @@ class SettingsService
     login_lockout_duration_minutes: { type: "integer", default: 15, category: "security", description: "Duration of login lockout in minutes" },
     api_token: { type: "string", category: "security", default: SecureRandom.base58(32), description: "Authentication token for the API" },
     allow_user_uploads: { type: "boolean", default: false, category: "security", description: "Allow non-admin users to upload book files directly" },
+    allow_user_request_approval: { type: "boolean", default: false, category: "security", description: "Allow non-admin users to view search results and select downloads for their own requests" },
 
     # Anna's Archive
     anna_archive_enabled: { type: "boolean", default: false, category: "anna_archive", description: "Enable Anna's Archive as an additional search source for ebooks" },
@@ -229,6 +230,10 @@ class SettingsService
 
     def user_uploads_allowed?
       get(:allow_user_uploads, default: false)
+    end
+
+    def user_request_approval_allowed?
+      get(:allow_user_request_approval, default: false)
     end
   end
 end

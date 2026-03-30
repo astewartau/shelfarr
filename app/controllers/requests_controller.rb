@@ -143,7 +143,7 @@ class RequestsController < ApplicationController
   end
 
   def retry
-    unless Current.user.admin?
+    unless Current.user.admin? || (SettingsService.user_request_approval_allowed? && @request.user == Current.user)
       redirect_back fallback_location: @request, alert: "You don't have permission to retry requests"
       return
     end

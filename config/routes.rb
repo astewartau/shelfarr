@@ -53,6 +53,14 @@ Rails.application.routes.draw do
       get :download
       post :retry
     end
+    resources :search_results, only: [ :index ] do
+      member do
+        post :select
+      end
+      collection do
+        post :refresh
+      end
+    end
   end
 
   # User Uploads
